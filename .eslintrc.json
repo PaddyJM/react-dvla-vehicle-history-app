@@ -21,7 +21,8 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "jest"
     ],
     "rules": {
         "import/extensions": [
@@ -33,6 +34,25 @@
              "ts": "never",
              "tsx": "never"
            }
-        ]
-     }
+        ],
+        "react/jsx-filename-extension": [
+            2,
+            { "extensions": [".js", ".jsx", ".ts", ".tsx"
+                ]
+            }
+        ],
+        "no-unused-vars": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
+    }
 }
