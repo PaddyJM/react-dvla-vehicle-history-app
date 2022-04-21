@@ -1,8 +1,9 @@
 /* eslint-disable no-new */
 import * as cdk from "aws-cdk-lib";
-import { Stack, StackProps } from "aws-cdk-lib";
+import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { Source } from "aws-cdk-lib/aws-s3-deployment";
+import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 
 export default class MOTHistoryStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -22,5 +23,21 @@ export default class MOTHistoryStack extends Stack {
         destinationBucket: bucket,
       }
     );
+
+    const distribution = new cdk.aws_cloudfront.Distribution(
+      this,
+      "MOTHistoryDistribution",
+      {
+        defaultBehavior: {
+          origin: new S3Origin(bucket),
+          cachePolicy: cdk.aws_cloudfront.CachePolicy.CACHING_DISABLED,
+        },
+        defaultRootObject: "index.html",
+      }
+    );
+
+    new CfnOutput(this, "MOTHistoryDistributionDomainName", {
+      value: distribution.distributionDomainName,
+    });
   }
 }
