@@ -49,12 +49,12 @@ const motHistory: MOTHistory = {
   ],
 };
 
-it("renders the relevant details of an MOT History", () => {
+it("renders the relevant details of an MOT History", async () => {
   render(<MOTHistoryViewer motHistory={motHistory} />);
-  expect(screen.findByText("Registration: OY02UHE")).toBeTruthy();
-  expect(screen.findByText("Make: VOLKSWAGEN")).toBeTruthy();
-  expect(screen.findByText("Model: GOLF")).toBeTruthy();
-  expect(screen.findByText("First Date Used: 2002.04.26")).toBeTruthy();
-  expect(screen.findByText("Fuel Type: Diesel")).toBeTruthy();
-  expect(screen.findByText("Primary Colour: Green")).toBeTruthy();
+  expect(await screen.findByText("Registration: OY02UHE")).toBeTruthy();
+  expect(await screen.findByText("Make: VOLKSWAGEN")).toBeTruthy();
+  expect(await screen.findByText("Model: GOLF")).toBeTruthy();
+  expect(await screen.findByText("First Date Used: 2002.04.26")).toBeTruthy();
+  expect(await screen.findByText("Fuel Type: Diesel")).toBeTruthy();
+  expect(await screen.findByText("Primary Colour: Green")).toBeTruthy();
 });
