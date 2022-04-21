@@ -8,7 +8,7 @@ interface Props {
 function ReasonsForRejection(props: Props) {
   const { rfrAndComments } = props;
   return (
-    <div>
+    <div data-testid="reasons-for-rejection">
       <ul>
         {rfrAndComments.map((rfrAndComment) => {
           return (
