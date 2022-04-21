@@ -1,4 +1,4 @@
-export interface RFRAndComments {
+export interface RFRAndComment {
   text: string;
   type: string;
   dangerous?: boolean;
@@ -11,7 +11,7 @@ export interface MOTTest {
   odometerValue: string;
   odometerUnit: string;
   motTestNumber: string;
-  rfrAndComments: RFRAndComments[];
+  rfrAndComments: RFRAndComment[];
 }
 
 export interface MOTHistory {
