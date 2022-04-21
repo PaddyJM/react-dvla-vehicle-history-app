@@ -14,6 +14,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+NOTE: this will also spin up the back end server for the application on http://localhost:3001
+
+This is using an express server to interact with the DVLA API. More information [here](https://dvsa.github.io/mot-history-api-documentation/)
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
