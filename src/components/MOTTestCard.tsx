@@ -1,5 +1,6 @@
 import React from "react";
 import { MOTTest } from "../types";
+import ReasonsForRejection from "./ReasonsForRejection";
 
 interface Props {
   motTest: MOTTest;
@@ -15,6 +16,9 @@ export default function MOTTestCard(props: Props) {
       <h3>Odometer Value: {motTest.odometerValue}</h3>
       <h3>Odometer Unit: {motTest.odometerUnit}</h3>
       <h3>MOT Test Number: {motTest.motTestNumber}</h3>
+      {motTest.rfrAndComments.length > 0 && (
+        <ReasonsForRejection rfrAndComments={motTest.rfrAndComments} />
+      )}
     </div>
   );
 }

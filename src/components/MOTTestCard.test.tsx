@@ -31,3 +31,19 @@ it("renders a card with the correct text in it", () => {
   expect(screen.getByText("Odometer Unit: mi")).toBeTruthy();
   expect(screen.getByText("MOT Test Number: 737942919276")).toBeTruthy();
 });
+
+const motTestWithoutRfr = {
+  completedDate: "2021.11.03 14:59:18",
+  testResult: "PASSED",
+  expiryDate: "2022.11.05",
+  odometerValue: "160582",
+  odometerUnit: "mi",
+  motTestNumber: "737942919276",
+  rfrAndComments: [],
+};
+
+it("does not render 'reasons for rejection' when where are none", () => {
+  render(<MOTTestCard motTest={motTestWithoutRfr} />);
+
+  expect(screen.queryByTestId("reasons-for-rejection")).toBeFalsy();
+});
