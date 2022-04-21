@@ -14,6 +14,17 @@ export default class MOTHistoryStack extends Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
       encryption: cdk.aws_s3.BucketEncryption.S3_MANAGED,
+      cors: [
+        {
+          allowedMethods: [
+            cdk.aws_s3.HttpMethods.GET,
+            cdk.aws_s3.HttpMethods.POST,
+            cdk.aws_s3.HttpMethods.PUT,
+          ],
+          allowedOrigins: ["http://localhost:3000"],
+          allowedHeaders: ["*"],
+        },
+      ],
     });
 
     new cdk.aws_s3_deployment.BucketDeployment(
@@ -51,7 +62,7 @@ export default class MOTHistoryStack extends Stack {
         ],
         allowMethods: ["OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE"],
         allowCredentials: true,
-        allowOrigins: ["http://localhost:3000"],
+        allowOrigins: cdk.aws_apigateway.Cors.ALL_ORIGINS,
       },
     });
 
@@ -65,7 +76,7 @@ export default class MOTHistoryStack extends Stack {
       }
     );
 
-    const resource = api.root.addResource("get-mot-history");
+    const resource = api.root.addResource("motHistory");
 
     resource.addMethod(
       "GET",

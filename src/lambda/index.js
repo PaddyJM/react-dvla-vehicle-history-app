@@ -16,6 +16,7 @@ async function main(event) {
   return {
     statusCode: 200,
     body: JSON.stringify(dvlaResponse),
+    headers: { "Access-Control-Allow-Origin": "*" },
   };
 }
 
