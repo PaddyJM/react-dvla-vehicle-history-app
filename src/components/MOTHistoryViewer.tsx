@@ -1,24 +1,32 @@
 import React from "react";
-
-export interface Record {
-  date: string;
-  passOrFail: "pass" | "fail";
-}
+import { MOTHistory } from "../types";
+import MOTTestCard from "./MOTTestCard";
 
 interface Props {
-  records: Array<Record>;
+  motHistory: MOTHistory;
 }
 
 function MOTHistoryViewer(props: Props) {
-  const { records } = props;
+  const { motHistory } = props;
   return (
     <ul>
-      {records.map((record) => (
-        <li key={record.date}>
-          <h2>{record.date}</h2>
-          <h2>{record.passOrFail}</h2>
-        </li>
-      ))}
+      <li key={1}>
+        <h2>Registration: {motHistory.registration}</h2>
+        <h2>Make: {motHistory.make}</h2>
+        <h2>Model: {motHistory.model}</h2>
+        <h2>First Date Used: {motHistory.firstUsedDate}</h2>
+        <h2>Fuel Type: {motHistory.fuelType}</h2>
+        <h2>Primary Colour: {motHistory.primaryColour}</h2>
+        <ul>
+          {motHistory.motTests.map((motTest) => {
+            return (
+              <li key={motTest.motTestNumber}>
+                <MOTTestCard motTest={motTest} />
+              </li>
+            );
+          })}
+        </ul>
+      </li>
     </ul>
   );
 }
