@@ -4,6 +4,7 @@ import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { Source } from "aws-cdk-lib/aws-s3-deployment";
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
+import * as path from "path";
 
 export default class MOTHistoryStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -53,5 +54,22 @@ export default class MOTHistoryStack extends Stack {
         allowOrigins: ["http://localhost:3000"],
       },
     });
+
+    const lambda = new cdk.aws_lambda_nodejs.NodejsFunction(
+      this,
+      "getMOTHistory",
+      {
+        runtime: cdk.aws_lambda.Runtime.NODEJS_14_X,
+        handler: "main",
+        entry: path.join(__dirname, "/../src/lambda/index.js"),
+      }
+    );
+
+    const resource = api.root.addResource("get-mot-history");
+
+    resource.addMethod(
+      "GET",
+      new cdk.aws_apigateway.LambdaIntegration(lambda, { proxy: true })
+    );
   }
 }
