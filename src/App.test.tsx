@@ -1,9 +1,15 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+it("renders the MOT history when clicked on", async () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  const button = await screen.findByText("Check MOT history.");
+  const input = await screen.findByRole("textbox");
+
+  fireEvent.input(input, { target: { value: "OY02UHE" } });
+  fireEvent.click(button);
+
+  expect(screen.findByText("Registration: OY02UHE")).toBeTruthy();
 });
