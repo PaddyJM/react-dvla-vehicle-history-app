@@ -39,5 +39,19 @@ export default class MOTHistoryStack extends Stack {
     new CfnOutput(this, "MOTHistoryDistributionDomainName", {
       value: distribution.distributionDomainName,
     });
+
+    const api = new cdk.aws_apigateway.RestApi(this, "MOTHistoryApi", {
+      defaultCorsPreflightOptions: {
+        allowHeaders: [
+          "Content-Type",
+          "X-Amz-Date",
+          "Authorization",
+          "X-Api-Key",
+        ],
+        allowMethods: ["OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE"],
+        allowCredentials: true,
+        allowOrigins: ["http://localhost:3000"],
+      },
+    });
   }
 }
