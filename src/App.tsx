@@ -15,6 +15,7 @@ function App() {
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setMOTHistory(undefined);
     const data = await fetch(
       `${baseURL}/motHistory?registration=${registration}`
     ).then((response) => response.json());

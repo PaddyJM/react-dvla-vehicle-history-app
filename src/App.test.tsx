@@ -28,3 +28,22 @@ it("removes all whitespace from registration and sets it to uppercase", async ()
 
   expect(screen.findByText("Registration: OY02UHE")).toBeTruthy();
 });
+
+it("resets mot history on second submit", async () => {
+  const firstRegistration = "OY02UHE";
+  const secondRegistration = "MA10LAO";
+
+  render(<App />);
+  const input = await screen.findByRole("textbox");
+  const button = await screen.findByText("Check MOT history.");
+
+  fireEvent.input(input, { target: { value: firstRegistration } });
+  fireEvent.click(button);
+
+  expect(screen.findByText("Registration: OY02UHE")).toBeTruthy();
+
+  fireEvent.input(input, { target: { value: "foo" } });
+  fireEvent.click(button);
+
+  expect(screen.queryByText("Registration: OY02UHE")).toBeFalsy();
+});
