@@ -26,7 +26,11 @@ function App() {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
-    setRegistration(event.target.value);
+    const dirtyRegistration = event.target.value;
+    const cleanRegistration = dirtyRegistration
+      .replace(/\s/g, "")
+      .toUpperCase();
+    setRegistration(cleanRegistration);
   };
 
   return (
