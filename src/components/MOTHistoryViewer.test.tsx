@@ -58,3 +58,15 @@ it("renders the relevant details of an MOT History", async () => {
   expect(await screen.findByText("Fuel Type: Diesel")).toBeTruthy();
   expect(await screen.findByText("Primary Colour: Green")).toBeTruthy();
 });
+
+it("only renders the MOT tests if the button is clicked", async () => {
+  render(<MOTHistoryViewer motHistory={motHistory} />);
+
+  expect(screen.queryByTestId("mot-tests")).toBeFalsy();
+
+  const button = screen.getByRole("button");
+
+  fireEvent.click(button);
+
+  expect(screen.queryByTestId("mot-tests")).toBeTruthy();
+});
