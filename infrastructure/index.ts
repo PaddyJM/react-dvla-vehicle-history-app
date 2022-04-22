@@ -5,7 +5,7 @@ import MOTHistoryStack from "./stack";
 
 const app = new cdk.App();
 // eslint-disable-next-line no-new
-new MOTHistoryStack(app, "MOTHistoryStack", {
+new MOTHistoryStack(app, "MOTHistoryStackTest", {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */

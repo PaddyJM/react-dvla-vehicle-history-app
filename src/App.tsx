@@ -8,7 +8,7 @@ function App() {
   const baseURL =
     process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test"
       ? "http://localhost:3001"
-      : "https://yoqf2tcb0h.execute-api.eu-west-2.amazonaws.com/prod";
+      : "https://xrv388c836.execute-api.eu-west-2.amazonaws.com/prod/";
 
   const [motHistory, setMOTHistory] = useState<MOTHistory>();
   const [registration, setRegistration] = useState<string>("");
@@ -17,6 +17,7 @@ function App() {
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setMOTHistory(undefined);
+    setShowNotFound(false);
     const response = await fetch(
       `${baseURL}/motHistory?registration=${registration}`
     );

@@ -14,7 +14,7 @@ async function main(event) {
     const data = await response.json();
     return {
       statusCode: 200,
-      body: JSON.stringify(data),
+      body: JSON.stringify(data[0]),
       headers: { "Access-Control-Allow-Origin": "*" },
     };
   }
