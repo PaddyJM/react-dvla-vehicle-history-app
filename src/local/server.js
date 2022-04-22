@@ -12,7 +12,7 @@ app.use(
 );
 
 app.get("/motHistory", async (req, res) => {
-  const dvlaResponseArray = await fetch(
+  const response = await fetch(
     `https://beta.check-mot.service.gov.uk/trade/vehicles/mot-tests?registration=${req.query.registration}`,
     {
       headers: {
@@ -20,11 +20,15 @@ app.get("/motHistory", async (req, res) => {
       },
       mode: "cors",
     }
-  )
-    .then((response) => response.json())
-    .catch((error) => console.log(error));
-  const dvlaResponse = dvlaResponseArray[0];
-  res.send(dvlaResponse);
+  ).catch((error) => console.log(error));
+  if (response.status === 200) {
+    const data = await response.json();
+    res.send(data[0]);
+  } else if (response.status === 404) {
+    res.status(404).send("Not found.");
+  } else {
+    res.status(500).send("Internal server error");
+  }
 });
 
 app.listen(port, () => {

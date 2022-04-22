@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 
 async function main(event) {
-  const dvlaResponseArray = await fetch(
+  const response = await fetch(
     `https://beta.check-mot.service.gov.uk/trade/vehicles/mot-tests?registration=${event.queryStringParameters.registration}`,
     {
       headers: {
@@ -9,13 +9,25 @@ async function main(event) {
       },
       mode: "cors",
     }
-  )
-    .then((response) => response.json())
-    .catch((error) => console.log(error));
-  const dvlaResponse = dvlaResponseArray[0];
+  ).catch((error) => console.log(error));
+  if (response.status === 200) {
+    const data = await response.json();
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data),
+      headers: { "Access-Control-Allow-Origin": "*" },
+    };
+  }
+  if (response.status === 404) {
+    return {
+      statusCode: 404,
+      body: "Not found.",
+      headers: { "Access-Control-Allow-Origin": "*" },
+    };
+  }
   return {
-    statusCode: 200,
-    body: JSON.stringify(dvlaResponse),
+    statusCode: 500,
+    body: "Internal server error.",
     headers: { "Access-Control-Allow-Origin": "*" },
   };
 }

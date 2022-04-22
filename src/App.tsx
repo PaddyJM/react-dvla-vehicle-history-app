@@ -6,20 +6,28 @@ import { MOTHistory } from "./types";
 
 function App() {
   const baseURL =
-    process.env.NODE_ENV === "development"
+    process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test"
       ? "http://localhost:3001"
       : "https://yoqf2tcb0h.execute-api.eu-west-2.amazonaws.com/prod";
 
   const [motHistory, setMOTHistory] = useState<MOTHistory>();
   const [registration, setRegistration] = useState<string>("");
+  const [showNotFound, setShowNotFound] = useState(false);
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setMOTHistory(undefined);
-    const data = await fetch(
+    const response = await fetch(
       `${baseURL}/motHistory?registration=${registration}`
-    ).then((response) => response.json());
-    setMOTHistory(data);
+    );
+    if (response.status === 404) {
+      setShowNotFound(true);
+    }
+    if (response.status === 200) {
+      const data = await response.json();
+      setMOTHistory(data);
+    }
+
     setRegistration("");
   };
 
@@ -41,6 +49,7 @@ function App() {
         onFormSubmit={handleFormSubmit}
         onRegistrationChange={handleRegistrationChange}
       />
+      {showNotFound && <h2>Registration not found.</h2>}
       {motHistory && <MOTHistoryViewer motHistory={motHistory} />}
     </>
   );

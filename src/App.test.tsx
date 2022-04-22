@@ -46,3 +46,14 @@ it("resets mot history on second submit", async () => {
 
   expect(screen.queryByText("Registration: OY02UHE")).toBeFalsy();
 });
+
+it("shows not found message when registration is not found", async () => {
+  render(<App />);
+  const input = screen.getByRole("textbox");
+  const button = screen.getByText("Check MOT history.");
+
+  fireEvent.input(input, { target: { value: "blash" } });
+  fireEvent.click(button);
+
+  expect(await screen.findByText("Registration not found.")).toBeTruthy();
+});
