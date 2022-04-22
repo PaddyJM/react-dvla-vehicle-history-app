@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import MOTTestCard from "./MOTTestCard";
 
 const motTest = {
@@ -46,4 +46,16 @@ it("does not render 'reasons for rejection' when where are none", () => {
   render(<MOTTestCard motTest={motTestWithoutRfr} />);
 
   expect(screen.queryByTestId("reasons-for-rejection")).toBeFalsy();
+});
+
+it("only renders the reasons for rejection if the button is clicked", async () => {
+  render(<MOTTestCard motTest={motTest} />);
+
+  expect(screen.queryByTestId("reasons-for-rejection")).toBeFalsy();
+
+  const button = screen.getByRole("button");
+
+  fireEvent.click(button);
+
+  expect(screen.queryByTestId("reasons-for-rejection")).toBeTruthy();
 });
