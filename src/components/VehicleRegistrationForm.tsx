@@ -17,7 +17,9 @@ function VehicleRegistrationForm(props: Props) {
         onChange={onRegistrationChange}
         placeholder="Enter vehicle registration here."
       />
-      <button type="submit">Check MOT history.</button>
+      <button type="submit" className="btn btn-primary ">
+        Check MOT history.
+      </button>
     </form>
   );
 }

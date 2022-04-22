@@ -24,7 +24,11 @@ function MOTHistoryViewer(props: Props) {
         <h2>First Date Used: {motHistory.firstUsedDate}</h2>
         <h2>Fuel Type: {motHistory.fuelType}</h2>
         <h2>Primary Colour: {motHistory.primaryColour}</h2>
-        <button type="button" onClick={handleButtonClick}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleButtonClick}
+        >
           Show MOT Tests.
         </button>
         {showMOTTests && (

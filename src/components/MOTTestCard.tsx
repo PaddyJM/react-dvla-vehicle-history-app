@@ -16,14 +16,18 @@ export default function MOTTestCard(props: Props) {
   };
 
   return (
-    <div className="mot-test">
+    <div>
       <h3>Completed Date: {motTest.completedDate}</h3>
       <h3>Test Result: {motTest.testResult}</h3>
       <h3>Expiry Date: {motTest.expiryDate}</h3>
       <h3>Odometer Value: {motTest.odometerValue}</h3>
       <h3>Odometer Unit: {motTest.odometerUnit}</h3>
       <h3>MOT Test Number: {motTest.motTestNumber}</h3>
-      <button type="button" onClick={handleButtonClick}>
+      <button
+        type="button"
+        className="btn btn-secondary"
+        onClick={handleButtonClick}
+      >
         Show Reasons for Rejection:
       </button>
       {motTest.rfrAndComments.length > 0 && showRFR && (
