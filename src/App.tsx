@@ -8,7 +8,7 @@ function App() {
   const baseURL =
     process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test"
       ? "http://localhost:3001"
-      : "https://xrv388c836.execute-api.eu-west-2.amazonaws.com/prod/";
+      : "https://yoqf2tcb0h.execute-api.eu-west-2.amazonaws.com/prod";
 
   const [motHistory, setMOTHistory] = useState<MOTHistory>();
   const [registration, setRegistration] = useState<string>("");
